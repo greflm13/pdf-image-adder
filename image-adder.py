@@ -10,8 +10,8 @@ from pypdf import PdfReader, PdfWriter, Transformation
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Add a transparent footer image to each page")
-    p.add_argument("pdf", nargs="+", help="One or more PDFs to modify")
     p.add_argument("image", help="PNG/JPEG to insert as footer")
+    p.add_argument("pdf", nargs="+", help="One or more PDFs to modify")
     return p.parse_args()
 
 
