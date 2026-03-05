@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import argparse
 import io
+import argparse
+
 from PIL import Image
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
