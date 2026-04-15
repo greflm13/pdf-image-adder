@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 import io
+import shutil
 import argparse
+import tempfile
+import subprocess
+
 
 from PIL import Image
 from reportlab.pdfgen import canvas
@@ -13,6 +17,30 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("image", help="PNG/JPEG to insert as footer")
     p.add_argument("pdf", nargs="+", help="One or more PDFs to modify")
     return p.parse_args()
+
+
+def compress_pdf_inplace(path: str) -> None:
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+        tmp_path = tmp.name
+
+    subprocess.run(
+        [
+            "gs",
+            "-sDEVICE=pdfwrite",
+            "-dPDFSETTINGS=/prepress",
+            "-dNOPAUSE",
+            "-dBATCH",
+            "-dQUIET",
+            "-dDownsampleColorImages=false",
+            "-dDownsampleGrayImages=false",
+            "-dDownsampleMonoImages=false",
+            f"-sOutputFile={tmp_path}",
+            path,
+        ],
+        check=True,
+    )
+
+    shutil.move(tmp_path, path)
 
 
 def make_image_page(img_path: str, width_pt: float, height_pt: float) -> bytes:
@@ -59,6 +87,8 @@ def main():
 
         with open(pdf_path, "wb") as f:
             writer.write(f)
+
+        compress_pdf_inplace(pdf_path)
 
 
 if __name__ == "__main__":
