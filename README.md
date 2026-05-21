@@ -1,2 +1,3 @@
 # pdf-image-adder
-q
+
+Add image to the bottom of all pdf pages

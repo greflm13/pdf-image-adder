@@ -1,0 +1,43 @@
+[build-system]
+    build-backend = "setuptools.build_meta"
+    requires      = ["setuptools>=61", "wheel"]
+
+[project]
+    description     = "Add image to the bottom of all pdf pages"
+    name            = "pdf-image-adder"
+    readme          = "README.md"
+    requires-python = ">=3.12"
+    version         = "1.0.0"
+
+    license = "AGPL-3.0-or-later"
+
+    authors = [{ name = "Flo Greistorfer" }]
+
+    dependencies = ["Pillow~=12.1.1", "pypdf~=6.7.5", "reportlab~=4.4.10"]
+
+    [project.scripts]
+        pdf-image-adder = "pdf_image_adder.main:main"
+
+[dependency-groups]
+    dev = ["deptry", "pyinstaller", "ruff"]
+
+[tool.setuptools.packages.find]
+    where = ["src"]
+
+[tool.setuptools.package-data]
+    pdf-image-adder = []
+
+[tool.ruff]
+    line-length    = 140
+    target-version = "py312"
+
+    [tool.ruff.lint]
+        ignore = ["E501"]
+        select = ["B", "E", "F", "I", "UP"]
+
+    [tool.ruff.format]
+        indent-style = "space"
+        quote-style  = "double"
+
+[tool.deptry.per_rule_ignores]
+    DEP003 = "pdf_image_adder"

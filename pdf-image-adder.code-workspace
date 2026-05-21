@@ -1,0 +1,42 @@
+{
+    "folders": [
+        {
+            "path": "./"
+        }
+    ],
+    "settings": {
+        "ruff.lineLength": 140,
+        "python-envs.pythonProjects": [
+            {
+                "path": "",
+                "envManager": "ms-python.python:pyenv",
+                "packageManager": "ms-python.python:pip"
+            }
+        ],
+        "python.analysis.typeCheckingMode": "standard",
+        "evenBetterToml.schema.associations": {
+            "**/pyproject.toml": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/pyproject.json"
+        },
+        "files.associations": {
+            "build.spec": "python"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "charliermarsh.ruff"
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Debug pdf-image-adder",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/src/pdf_image_adder/main.py",
+                "console": "integratedTerminal",
+                "args": []
+            }
+        ]
+    }
+}

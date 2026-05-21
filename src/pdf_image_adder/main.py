@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
+import argparse
 import io
 import shutil
-import argparse
-import tempfile
 import subprocess
-
+import tempfile
 
 from PIL import Image
-from reportlab.pdfgen import canvas
-from reportlab.lib.utils import ImageReader
 from pypdf import PdfReader, PdfWriter, Transformation
+from reportlab.lib.utils import ImageReader
+from importlib.metadata import version
+from reportlab.pdfgen import canvas
+
+__version__ = version("pdf_image_adder")
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Add a transparent footer image to each page")
     p.add_argument("image", help="PNG/JPEG to insert as footer")
     p.add_argument("pdf", nargs="+", help="One or more PDFs to modify")
+    p.add_argument("-V", "--version", action="version", version="%(prog)s " + __version__)
     return p.parse_args()
 
 
