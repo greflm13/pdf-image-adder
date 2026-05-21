@@ -4,11 +4,11 @@ import io
 import shutil
 import subprocess
 import tempfile
+from importlib.metadata import version
 
 from PIL import Image
 from pypdf import PdfReader, PdfWriter, Transformation
 from reportlab.lib.utils import ImageReader
-from importlib.metadata import version
 from reportlab.pdfgen import canvas
 
 __version__ = version("pdf_image_adder")
