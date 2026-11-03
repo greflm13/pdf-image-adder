@@ -18,6 +18,7 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Add a transparent footer image to each page")
     p.add_argument("image", help="PNG/JPEG to insert as footer")
     p.add_argument("pdf", nargs="+", help="One or more PDFs to modify")
+    p.add_argument("-s", "--skip-pages", type=int, default=0, help="Don't add image to n amount of pages counting from the top")
     p.add_argument("-V", "--version", action="version", version="%(prog)s " + __version__)
     return p.parse_args()
 
@@ -83,9 +84,10 @@ def main():
 
         writer = PdfWriter()
 
-        for page in reader.pages:
-            t = Transformation().translate(x_pos, y_pos)
-            page.merge_transformed_page(overlay_page, t)
+        for idx, page in enumerate(reader.pages):
+            if idx >= args.skip_pages:
+                t = Transformation().translate(x_pos, y_pos)
+                page.merge_transformed_page(overlay_page, t)
             writer.add_page(page)
 
         with open(pdf_path, "wb") as f:
